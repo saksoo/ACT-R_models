@@ -6,14 +6,14 @@ import params
 activity = 0
 CDR = 0
 
-sg.change_look_and_feel('Topanga')      # Add some color to the window
+sg.change_look_and_feel('BlueMono')      # Add some color to the window
 
 # Very basic window.  Return values using auto numbered keys
 
 layout = [
     [sg.Text('Enter the parameters to run the models:')],
     [sg.Drop(values=('Tea Preparation Activity', 'Washing Hands Activity', 'Dressing Activity'), auto_size_text=True)], #0
-    [sg.Drop(values=('MCI', 'Mild Dementia', 'Moderate Dementia', 'Severe Dementia'), auto_size_text=True)], #1
+    [sg.Drop(values=('MCI', 'Mild AD', 'Moderate AD', 'Severe AD'), auto_size_text=True)], #1
     [sg.Text('# People', size=(20, 1)), sg.InputText()], #2
     [sg.Text('Advanced parameters for the Declarative Memory Module:')],
 
@@ -32,7 +32,7 @@ layout = [
 ]
 
 
-window = sg.Window('Simulation of daily activities', layout)
+window = sg.Window('Simulation of daily activities', layout, element_justification='c')
 event, values = window.read()
 window.close()
 print(event)
@@ -43,9 +43,9 @@ if values[0] == 'Washing Hands Activity': activity = 2
 if values[0] == 'Dressing Activity': activity = 3
 
 if values[1] == 'MCI': CDR = 0.5
-if values[1] == 'Mild Dementia': CDR = 1
-if values[1] == 'Moderate Dementia': CDR = 2
-if values[1] == 'Severe Dementia': CDR = 3
+if values[1] == 'Mild AD': CDR = 1
+if values[1] == 'Moderate AD': CDR = 2
+if values[1] == 'Severe AD': CDR = 3
 
 
 #adjust parameters
@@ -62,19 +62,19 @@ elif CDR == 0.5:  ## MCI
     params.similarity = -0.1
     params.utility_success = 0.8
     params.utility_fail = 1 - params.utility_success
-elif CDR == 1:  ## MILD DEMENTIA
+elif CDR == 1:  ## MILD AD
     params.W = 1.285
     params.Ps = 1
     params.similarity = -0.1
     params.utility_success = 0.62
     params.utility_fail = 1 - params.utility_success
-elif CDR == 2:  ## MODERATE DEMENTIA
+elif CDR == 2:  ## MODERATE AD
     params.W = 1.08
     params.Ps = 1
     params.similarity = -0.1
     params.utility_success = 0.475
     params.utility_fail = 1 - params.utility_success
-elif CDR == 3:
+elif CDR == 3: ## SEVERE AD
     params.W = 1.035
     params.Ps = 1
     params.similarity = -0.1
@@ -98,7 +98,7 @@ if activity == 1:
     params.CDR = CDR
 
     print "Activity chosen: TEA PREPARATION"
-    print "Level of dementia: CDR-%.1f" % CDR
+    print "Level of AD: CDR-%.1f" % CDR
     print "Run for", params.N, "people."
 
     execfile('tea_experiment.py')
@@ -107,7 +107,7 @@ elif activity == 2:
     params.CDR = CDR
 
     print "Activity chosen: WASHING HANDS"
-    print "Level of dementia: CDR-%.1f" % CDR
+    print "Level of AD: CDR-%.1f" % CDR
     print "Run for", params.N, "people."
 
     execfile('washing_experiment.py')
@@ -116,7 +116,7 @@ elif activity == 3:
     params.CDR = CDR
 
     print "Activity chosen: DRESSING"
-    print "Level of dementia: CDR-%.1f" % CDR
+    print "Level of AD: CDR-%.1f" % CDR
     print "Run for", params.N, "people."
 
     execfile('dressing_experiment.py')

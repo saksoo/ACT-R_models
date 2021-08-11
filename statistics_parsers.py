@@ -14,6 +14,34 @@ else:  # check if on WINDOWS
     directory = "." + "/mainGUI"
 
 
+def table_to_list(table):
+    dct = table_to_2d_dict(table)
+    return list(iter_2d_dict(dct))
+
+
+def table_to_2d_dict(table):
+    result = defaultdict(lambda : defaultdict(unicode))
+    for row_i, row in enumerate(table.xpath('./tr')):
+        for col_i, col in enumerate(row.xpath('./td|./th')):
+            colspan = int(col.get('colspan', 1))
+            rowspan = int(col.get('rowspan', 1))
+            col_data = col.text_content()
+            while row_i in result and col_i in result[row_i]:
+                col_i += 1
+            for i in range(row_i, row_i + rowspan):
+                for j in range(col_i, col_i + colspan):
+                    result[i][j] = col_data
+    return result
+
+
+def iter_2d_dict(dct):
+    for i, row in sorted(dct.items()):
+        cols = []
+        for j, col in sorted(row.items()):
+            cols.append(col)
+        yield cols
+
+
 def get_statistics_dressing():
     dir_path = directory
     html_log_filename = os.listdir(dir_path)[0]
@@ -21,54 +49,6 @@ def get_statistics_dressing():
         parsed = parse(urlopen("file:///" + os.path.abspath(dir_path) + "/" + html_log_filename))
     else:  # check if on WINDOWS
         parsed = parse(urlopen("file:/" + os.path.abspath(dir_path) + "/" + html_log_filename))
-    doc = parsed.getroot()
-    tables = doc.findall(".//table")
-    row_sets = [table.findall(".//tr") for table in tables]
-
-    # we define a function that extracts data from an html table
-    def unpack(row, kind="td"):
-        """
-        ... Extracts data from an html table.
-        kind="td" is for data, kind="th" is for headers.
-        ... """
-        elts = row.findall(".//%s" % kind)
-        return [val.text_content() for val in elts]
-
-    def parse_data_pandaframe(table):
-        rows = table.findall(".//tr")
-        # header = [unpack(row, kind="th") for row in rows]
-        # print header
-        # header = header[2]
-        header = ['time', 'DM_busy', 'DM_error', 'DMBuffer_Chunk', 'Goal_Chunk', 'Production']
-        data = [unpack(row, kind="td") for row in rows]
-        data = data[3:]
-        #print data
-        return TextParser(data, names=header).get_chunk()
-
-    def table_to_list(table):
-        dct = table_to_2d_dict(table)
-        return list(iter_2d_dict(dct))
-
-    def table_to_2d_dict(table):
-        result = defaultdict(lambda : defaultdict(unicode))
-        for row_i, row in enumerate(table.xpath('./tr')):
-            for col_i, col in enumerate(row.xpath('./td|./th')):
-                colspan = int(col.get('colspan', 1))
-                rowspan = int(col.get('rowspan', 1))
-                col_data = col.text_content()
-                while row_i in result and col_i in result[row_i]:
-                    col_i += 1
-                for i in range(row_i, row_i + rowspan):
-                    for j in range(col_i, col_i + colspan):
-                        result[i][j] = col_data
-        return result
-
-    def iter_2d_dict(dct):
-        for i, row in sorted(dct.items()):
-            cols = []
-            for j, col in sorted(row.items()):
-                cols.append(col)
-            yield cols
 
     #get the results in panda frame
     df = 0
@@ -271,55 +251,7 @@ def get_statistics_tea():
         parsed = parse(urlopen("file:///" + os.path.abspath(dir_path) + "/" + html_log_filename))
     else:  # check if on WINDOWS
         parsed = parse(urlopen("file:/" + os.path.abspath(dir_path) + "/" + html_log_filename))
-    doc = parsed.getroot()
-    tables = doc.findall(".//table")
-    row_sets = [table.findall(".//tr") for table in tables]
-
-    # we define a function that extracts data from an html table
-    def unpack(row, kind="td"):
-        """
-        ... Extracts data from an html table.
-        kind="td" is for data, kind="th" is for headers.
-        ... """
-        elts = row.findall(".//%s" % kind)
-        return [val.text_content() for val in elts]
-
-    def parse_data_pandaframe(table):
-        rows = table.findall(".//tr")
-        # header = [unpack(row, kind="th") for row in rows]
-        # print header
-        # header = header[2]
-        header = ['time', 'DM_busy', 'DM_error', 'DMBuffer_Chunk', 'Goal_Chunk', 'Production']
-        data = [unpack(row, kind="td") for row in rows]
-        data = data[3:]
-        #print data
-        return TextParser(data, names=header).get_chunk()
-
-    def table_to_list(table):
-        dct = table_to_2d_dict(table)
-        return list(iter_2d_dict(dct))
-
-    def table_to_2d_dict(table):
-        result = defaultdict(lambda : defaultdict(unicode))
-        for row_i, row in enumerate(table.xpath('./tr')):
-            for col_i, col in enumerate(row.xpath('./td|./th')):
-                colspan = int(col.get('colspan', 1))
-                rowspan = int(col.get('rowspan', 1))
-                col_data = col.text_content()
-                while row_i in result and col_i in result[row_i]:
-                    col_i += 1
-                for i in range(row_i, row_i + rowspan):
-                    for j in range(col_i, col_i + colspan):
-                        result[i][j] = col_data
-        return result
-
-    def iter_2d_dict(dct):
-        for i, row in sorted(dct.items()):
-            cols = []
-            for j, col in sorted(row.items()):
-                cols.append(col)
-            yield cols
-
+ 
     #get the results in panda frame
     df = 0
     doc = parsed
@@ -623,55 +555,7 @@ def get_statistics_washing():
         parsed = parse(urlopen("file:///" + os.path.abspath(dir_path) + "/" + html_log_filename))
     else:  # check if on WINDOWS
         parsed = parse(urlopen("file:/" + os.path.abspath(dir_path) + "/" + html_log_filename))
-    doc = parsed.getroot()
-    tables = doc.findall(".//table")
-    row_sets = [table.findall(".//tr") for table in tables]
-
-    # we define a function that extracts data from an html table
-    def unpack(row, kind="td"):
-        """
-        ... Extracts data from an html table.
-        kind="td" is for data, kind="th" is for headers.
-        ... """
-        elts = row.findall(".//%s" % kind)
-        return [val.text_content() for val in elts]
-
-    def parse_data_pandaframe(table):
-        rows = table.findall(".//tr")
-        # header = [unpack(row, kind="th") for row in rows]
-        # print header
-        # header = header[2]
-        header = ['time', 'DM_busy', 'DM_error', 'DMBuffer_Chunk', 'Goal_Chunk', 'Production']
-        data = [unpack(row, kind="td") for row in rows]
-        data = data[3:]
-        #print data
-        return TextParser(data, names=header).get_chunk()
-
-    def table_to_list(table):
-        dct = table_to_2d_dict(table)
-        return list(iter_2d_dict(dct))
-
-    def table_to_2d_dict(table):
-        result = defaultdict(lambda : defaultdict(unicode))
-        for row_i, row in enumerate(table.xpath('./tr')):
-            for col_i, col in enumerate(row.xpath('./td|./th')):
-                colspan = int(col.get('colspan', 1))
-                rowspan = int(col.get('rowspan', 1))
-                col_data = col.text_content()
-                while row_i in result and col_i in result[row_i]:
-                    col_i += 1
-                for i in range(row_i, row_i + rowspan):
-                    for j in range(col_i, col_i + colspan):
-                        result[i][j] = col_data
-        return result
-
-    def iter_2d_dict(dct):
-        for i, row in sorted(dct.items()):
-            cols = []
-            for j, col in sorted(row.items()):
-                cols.append(col)
-            yield cols
-
+    
     #get the results in panda frame
     df = 0
     doc = parsed
