@@ -324,7 +324,7 @@ else:
     ]
 
     # Parameters for the font of the figure
-    plt.rcParams["figure.figsize"] = (20, 20)
+    plt.rcParams["figure.figsize"] = (15, 9)
     plt.rcParams.update({'font.size': 20})
     # plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"] # use this to default the settings
 
