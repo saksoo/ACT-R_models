@@ -11,28 +11,28 @@ sg.change_look_and_feel('BlueMono')      # Add some color to the window
 # Very basic window.  Return values using auto numbered keys
 
 layout = [
-    [sg.Text('Enter the parameters to run the models:')],
+    [sg.Text('Enter the parameters to run the models:', size=(25, 1))],
     [sg.Drop(values=('Tea Preparation Activity', 'Washing Hands Activity', 'Dressing Activity'), auto_size_text=True)], #0
     [sg.Drop(values=('MCI', 'Mild AD', 'Moderate AD', 'Severe AD'), auto_size_text=True)], #1
     [sg.Text('# People', size=(20, 1)), sg.InputText()], #2
     [sg.Text('Advanced parameters for the Declarative Memory Module:')],
 
-    [sg.Text('Chunk Activation Transitory Noise e:', size=(20, 1)), sg.InputText()], #3
-    [sg.Text('Strength of Association S:', size=(20, 1)), sg.InputText()],  # 4
-    [sg.Text('Attentional Weight W:', size=(20, 1)), sg.InputText()], # 5
-    [sg.Text('Strength of Similarity P:', size=(20, 1)), sg.InputText()], # 6
-    [sg.Text('Similarity of Chunks:', size=(20, 1)), sg.InputText()], # 7
+    [sg.Text('Chunk Activation Transitory Noise e:', size=(25, 1)), sg.InputText()], #3
+    [sg.Text('Strength of Association S:', size=(25, 1)), sg.InputText()],  # 4
+    [sg.Text('Attentional Weight W:', size=(25, 1)), sg.InputText()], # 5
+    [sg.Text('Strength of Similarity P:', size=(25, 1)), sg.InputText()], # 6
+    [sg.Text('Similarity of Chunks:', size=(25, 1)), sg.InputText()], # 7
     [sg.Text('Advanced parameters for the Production Module:')], #
-    [sg.Text('Production Utility Noise e:', size=(20, 1)), sg.InputText()], # 8
-    [sg.Text('Production Utility Success:', size=(20, 1)), sg.InputText()], # 9
-    [sg.Text('Production Utility Fail:', size=(20, 1)), sg.InputText()], # 10
-    [sg.Text('Physical help factor:', size=(20, 1)), sg.InputText()], # 11
-    [sg.Text('Verbal help factor:', size=(20, 1)), sg.InputText()], # 12
+    [sg.Text('Production Utility Noise e:', size=(25, 1)), sg.InputText()], # 8
+    [sg.Text('Production Utility Success:', size=(25, 1)), sg.InputText()], # 9
+    [sg.Text('Production Utility Fail:', size=(25, 1)), sg.InputText()], # 10
+    [sg.Text('Physical help factor:', size=(25, 1)), sg.InputText()], # 11
+    [sg.Text('Verbal help factor:', size=(25, 1)), sg.InputText()], # 12
     [sg.Submit(button_text='Run'), sg.Cancel()] #
 ]
 
-
-window = sg.Window('Simulation of daily activities', layout, element_justification='c')
+my_font = ("Arial", 13)
+window = sg.Window('Simulation of daily activities', layout, element_justification='c', size=(700, 550), font=my_font)
 event, values = window.read()
 window.close()
 print(event)

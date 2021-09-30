@@ -319,17 +319,27 @@ else:
         ['Safety',  N - saf_problems_all_at_least_one, saf_problems_all_at_least_one_verbal, saf_problems_all_at_least_one_physical, saf_problems_all_at_least_one_incapable],
         ['Completion',  N - comp_problems_all, comp_problems_all_verbal_help, comp_problems_all_physical_help, comp_problems_all_incapable]
     ]
+
+    #Parameters for the font of the figure
+    plt.rcParams["figure.figsize"] = (20, 20)
+    plt.rcParams.update({'font.size': 20})
+    #plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"] # use this to default the settings
+
     df = pd.DataFrame(data, columns=['Criteria', 'Independent', 'Verbal help', 'Physical Help', 'Incapable'])
     df.plot.bar()
-    plt.bar(df['Independent'], df['Verbal help'])
     plt.xlabel("Categories")
     plt.ylabel("#Subjects")
+
+    # Text above the figure
     texttodisplay = 'MEAN KTA: ' + str(np.mean(kta_list_all_subjects)) + '\n' + 'SD: ' + str(np.std(kta_list_all_subjects, ddof=0))
-    plt.text(0.5, N + 1, texttodisplay)    # Create names
+    plt.text(0.6, N+0.2, texttodisplay)    # Create names
+
+
     xbars = ('Initiation', 'Organization', 'Sequencing', 'Safety', 'Completion')
     x_pos = np.arange(len(xbars))
     plt.xticks(x_pos, xbars, rotation='horizontal')
     plt.ylim([0, N])
+
     plt.show()
 
     #save the results to excel file.

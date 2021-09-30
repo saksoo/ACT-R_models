@@ -1,7 +1,6 @@
 from __future__ import division
 import numpy as np
 from statistics_parsers import get_statistics_dressing
-import PySimpleGUI27 as sg
 import params
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -366,27 +365,29 @@ else:
         ['Safety',  N - saf_problems_all_at_least_one, saf_problems_all_at_least_one_verbal, saf_problems_all_at_least_one_physical, saf_problems_all_at_least_one_incapable],
         ['Completion',  N - comp_problems_all_at_least_one, comp_problems_all_at_least_one_verbal, comp_problems_all_at_least_one_physical, comp_problems_all_at_least_one_incapable]
     ]
+
+    # Parameters for the font of the figure
+    plt.rcParams["figure.figsize"] = (20, 20)
+    plt.rcParams.update({'font.size': 20})
+    # plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"] # use this to default the settings
+
     df = pd.DataFrame(data, columns=['Criteria', 'Independent', 'Verbal help', 'Physical Help', 'Incapable'])
     df.plot.bar()
-    plt.bar(df['Independent'], df['Verbal help'])
     plt.xlabel("Categories")
     plt.ylabel("#Subjects")
-    texttodisplay = 'MEAN KTA: ' + str(np.mean(kta_list_all_subjects)) + '\n' + 'SD: ' + str(np.std(kta_list_all_subjects, ddof=0))
-    plt.text(0.5, N + 1, texttodisplay)    # Create names
+
+    # Text above the figure
+    texttodisplay = 'MEAN KTA: ' + str(np.mean(kta_list_all_subjects)) + '\n' + 'SD: ' + str(
+        np.std(kta_list_all_subjects, ddof=0))
+    plt.text(0.6, N + 0.2, texttodisplay)  # Create names
+
     xbars = ('Initiation', 'Organization', 'Sequencing', 'Safety', 'Completion')
     x_pos = np.arange(len(xbars))
     plt.xticks(x_pos, xbars, rotation='horizontal')
     plt.ylim([0, N])
+
     plt.show()
 
-    #save the results to excel file.
-    # workbook = xlsxwriter.Workbook('kta100.xlsx')
-    # worksheet = workbook.add_worksheet()
-    # row, column = 0, 0
-    # for kta in kta_list_all_subjects:
-    #     worksheet.write(row, column, kta)
-    #     row += 1
-    # workbook.close()
 
 
 
