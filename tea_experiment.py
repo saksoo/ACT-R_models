@@ -322,12 +322,14 @@ else:
 
     #Parameters for the font of the figure
     plt.rcParams["figure.figsize"] = (15, 9)
-    plt.rcParams.update({'font.size': 20})
+    plt.rcParams.update({'font.size': 30})
     #plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"] # use this to default the settings
 
     df = pd.DataFrame(data, columns=['Criteria', 'Independent', 'Verbal help', 'Physical Help', 'Incapable'])
-    df.plot.bar()
-    plt.xlabel("Categories")
+    #df.plot.bar()
+
+    df.plot(kind='bar', yerr=0.5)
+    plt.xlabel("")
     plt.ylabel("#Subjects")
 
     # Text above the figure
