@@ -17,7 +17,7 @@ layout = [
     [sg.Text('# People', size=(20, 1)), sg.InputText()], #2
     [sg.Text('Advanced parameters for the Declarative Memory Module:')],
 
-    [sg.Text('Chunk Activation Transitory Noise e:', size=(25, 1)), sg.InputText()], #3
+    [sg.Text('Chunk Activation Transitory Noise e:', size=(30, 1)), sg.InputText()], #3
     [sg.Text('Strength of Association S:', size=(25, 1)), sg.InputText()],  # 4
     [sg.Text('Attentional Weight W:', size=(25, 1)), sg.InputText()], # 5
     [sg.Text('Strength of Similarity P:', size=(25, 1)), sg.InputText()], # 6
