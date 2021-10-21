@@ -11,7 +11,7 @@ sg.change_look_and_feel('BlueMono')      # Add some color to the window
 # Very basic window.  Return values using auto numbered keys
 
 layout = [
-    [sg.Text('Enter the parameters to run the models:', size=(25, 1))],
+    [sg.Text('Enter the parameters to run the models:', size=(35, 1))],
     [sg.Drop(values=('Tea Preparation Activity', 'Washing Hands Activity', 'Dressing Activity'), auto_size_text=True)], #0
     [sg.Drop(values=('MCI', 'Mild AD', 'Moderate AD', 'Severe AD'), auto_size_text=True)], #1
     [sg.Text('# People', size=(20, 1)), sg.InputText()], #2

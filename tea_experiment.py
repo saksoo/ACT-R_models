@@ -198,8 +198,7 @@ else:
 
     #keep real number of maximun and minimum number of help required:
     all_problems = np.zeros((0, 20), dtype=int)
-    print (all_problems)
-
+    # print (all_problems)
 
     for i in range(0, N):
 
@@ -223,7 +222,6 @@ else:
                result_one['Safety problems'], result_one['Safety problems verbal help'], result_one['Safety problems physical help'], result_one['Safety problems incapable'], result_one['Completion problems'],
                result_one['Completion problems verbal help'], result_one['Completion problems physical help'], result_one['Completion problems incapable']]
         all_problems = np.vstack([all_problems, row])
-
 
         # we count for each person how much help they got
         if result_one['Initiation problems'] > 0:
@@ -340,15 +338,12 @@ else:
     #plt.rcParams["figure.figsize"] = plt.rcParamsDefault["figure.figsize"] # use this to default the settings
 
     df = pd.DataFrame(data, columns=['Criteria', 'Independent', 'Verbal help', 'Physical Help', 'Incapable'])
-    #df.plot.bar()
-
     ### When the SD of the KTA is > 2 we add a N=2 error in the Y bar. We want the score to be as accurate as possible
     if np.std(kta_list_all_subjects, ddof=0) >= 2:
         error_factor = 2
     else:
         error_factor = 0
     ###
-
 
     df.plot(kind='bar', yerr=error_factor)
     plt.xlabel("")
@@ -365,26 +360,14 @@ else:
 
     plt.ylim([0, N+error_factor])  #Limit of the Y in the graph. use this if we go with error bars to show the error
 
-    print(all_problems)
-    for i in range(0, N):
-        print all_problems[i][4]
-
-    print np.max(all_problems, axis=0)
-    print np.min(all_problems, axis=0)
-    print np.mean(all_problems, axis=0)
-
+    # print(all_problems)
+    # for i in range(0, N):
+    #     print all_problems[i][4]
+    #
+    # print np.max(all_problems, axis=0)
+    # print np.min(all_problems, axis=0)
+    # print np.mean(all_problems, axis=0)
     plt.show()
-
-
-
-    #save the results to excel file.
-    # workbook = xlsxwriter.Workbook('kta100.xlsx')
-    # worksheet = workbook.add_worksheet()
-    # row, column = 0, 0
-    # for kta in kta_list_all_subjects:
-    #     worksheet.write(row, column, kta)
-    #     row += 1
-    # workbook.close()
 
 
 
