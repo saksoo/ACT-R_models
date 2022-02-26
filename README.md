@@ -1,6 +1,6 @@
 # ACT-R_models
 
-Instructions to run the models in Python 2:
+Instructions to run the models in Python 2
 
 1.	Install Python 2 from the official website
 2.	Install CCMsuite: https://sites.google.com/site/pythonactr/set-up/ccmsuite-download
