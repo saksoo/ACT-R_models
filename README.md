@@ -3,7 +3,7 @@
 Instructions to run the models in Python 2
 
 1.	Install Python 2 from the official website
-2.	Install CCMsuite: https://sites.google.com/site/pythonactr/set-up/ccmsuite-download
+2.	Install CCMsuite: https://sites.google.com/site/pythonactr/ (currently python version being updated to a new one but still operational for old models)
 	1. Official python2 version: https://github.com/tcstewar/ccmsuite
  	2. Clone the code or download zip
  	3. Install manually with python setup.py install
